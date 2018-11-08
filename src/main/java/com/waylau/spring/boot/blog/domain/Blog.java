@@ -20,8 +20,9 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.pegdown.PegDownProcessor;
 
-import com.github.rjeschke.txtmark.Processor;
+//import com.github.rjeschke.txtmark.Processor;
 
 /**
  * Blog 实体
@@ -134,7 +135,11 @@ public class Blog implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-		this.htmlContent = Processor.process(content); // 将Markdown 内容转为 HTML 格式.
+		PegDownProcessor pdp = new PegDownProcessor(Integer.MAX_VALUE);
+//        html = pdp.markdownToHtml(html);
+		this.htmlContent =pdp.markdownToHtml(content); // 将Markdown 内容转为 HTML 格式.
+	
+//		this.htmlContent = Processor.process(content); // 将Markdown 内容转为 HTML 格式.
 	}
 	public User getUser() {
 		return user;
